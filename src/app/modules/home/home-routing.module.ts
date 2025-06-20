@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Auth } from './auth/auth';
+import { authComponent } from './auth/auth';
 
 const routes: Routes = [
   {
     path: '',
-    component: Auth
+    component: authComponent
   }
 ];
 

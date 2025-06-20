@@ -1,1 +1,114 @@
-<p>auth works!</p>
+<div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1>{{ isLoginMode() ? 'Iniciar Sesión' : 'Registrarse' }}</h1>
+          <p>{{ isLoginMode() ? 'Ingresa a tu cuenta' : 'Crea una nueva cuenta' }}</p>
+        </div>
+
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="auth-form">
+          <!-- Campos de registro adicionales -->
+          <div *ngIf="!isLoginMode()" class="form-group">
+            <label for="name">Nombre completo</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              [class.error]="authForm.get('name')?.invalid && authForm.get('name')?.touched"
+              placeholder="Ingresa tu nombre completo"
+            />
+            <div *ngIf="authForm.get('name')?.invalid && authForm.get('name')?.touched" class="error-message">
+              <span *ngIf="authForm.get('name')?.errors?.['required']">El nombre es requerido</span>
+              <span *ngIf="authForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</span>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              [class.error]="authForm.get('email')?.invalid && authForm.get('email')?.touched"
+              placeholder="correo@ejemplo.com"
+            />
+            <div *ngIf="authForm.get('email')?.invalid && authForm.get('email')?.touched" class="error-message">
+              <span *ngIf="authForm.get('email')?.errors?.['required']">El correo es requerido</span>
+              <span *ngIf="authForm.get('email')?.errors?.['email']">Ingresa un correo válido</span>
+            </div>
+          </div>
+
+          <!-- Contraseña -->
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <div class="password-input">
+              <input
+                id="password"
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                [class.error]="authForm.get('password')?.invalid && authForm.get('password')?.touched"
+                placeholder="Ingresa tu contraseña"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePassword()"
+              >
+                {{ showPassword() ? '👁️' : '👁️‍🗨️' }}
+              </button>
+            </div>
+            <div *ngIf="authForm.get('password')?.invalid && authForm.get('password')?.touched" class="error-message">
+              <span *ngIf="authForm.get('password')?.errors?.['required']">La contraseña es requerida</span>
+              <span *ngIf="authForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</span>
+            </div>
+          </div>
+
+          <!-- Confirmar contraseña (solo registro) -->
+          <div *ngIf="!isLoginMode()" class="form-group">
+            <label for="confirmPassword">Confirmar contraseña</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              formControlName="confirmPassword"
+              [class.error]="authForm.get('confirmPassword')?.invalid && authForm.get('confirmPassword')?.touched"
+              placeholder="Confirma tu contraseña"
+            />
+            <div *ngIf="authForm.get('confirmPassword')?.invalid && authForm.get('confirmPassword')?.touched" class="error-message">
+              <span *ngIf="authForm.get('confirmPassword')?.errors?.['required']">Confirma tu contraseña</span>
+              <span *ngIf="authForm.get('confirmPassword')?.errors?.['passwordMismatch']">Las contraseñas no coinciden</span>
+            </div>
+          </div>
+
+          <!-- Términos y condiciones (solo registro) -->
+          <div *ngIf="!isLoginMode()" class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="acceptTerms" />
+              <span class="checkmark"></span>
+              Acepto los <a href="#" class="link">términos y condiciones</a>
+            </label>
+            <div *ngIf="authForm.get('acceptTerms')?.invalid && authForm.get('acceptTerms')?.touched" class="error-message">
+              <span>Debes aceptar los términos y condiciones</span>
+            </div>
+          </div>
+
+          <!-- Botón de envío -->
+          <button
+            type="submit"
+            class="submit-btn"
+            [disabled]="authForm.invalid || isLoading()"
+          >
+            <span *ngIf="!isLoading()">{{ isLoginMode() ? 'Iniciar Sesión' : 'Registrarse' }}</span>
+            <span *ngIf="isLoading()" class="loading">Procesando...</span>
+          </button>
+        </form>
+
+        <!-- Alternar entre login y registro -->
+        <div class="auth-toggle">
+          <p>
+            {{ isLoginMode() ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?' }}
+            <button type="button" class="toggle-btn" (click)="toggleMode()">
+              {{ isLoginMode() ? 'Regístrate' : 'Inicia sesión' }}
+            </button>
+          </p>
+        </div>
+    </div>
