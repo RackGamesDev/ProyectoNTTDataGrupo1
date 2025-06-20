@@ -13,6 +13,7 @@ export class ConexionIgdbService {
   private readonly API_TOKEN = environment.igdbToken;
   private readonly API_URL_JUEGOS = environment.igdbJuegosUrl;
 
+  //Busca todos los juegos que coincidan con un nombre
   async buscarNombre(nombre: String): Promise<Juego[]> {
     if (!nombre) {
       console.log("Falta el nombre");
@@ -21,6 +22,8 @@ export class ConexionIgdbService {
     const body = 'fields id,cover.image_id,name,release_dates,summary,url; search "' + nombre + '";';
     return this.buscar(body);
   }
+
+  //Busca un juego con ese id
   async buscarId(id: number): Promise<Juego[]> {
     if (!id) {
       console.log("Falta el id");
@@ -30,7 +33,8 @@ export class ConexionIgdbService {
     return this.buscar(body);
   }
 
-  async buscar(body: any): Promise<Juego[]> {
+  //Funcion interna para buscar en la API
+  private async buscar(body: any): Promise<Juego[]> {
     const respuesta = await fetch(this.API_URL_JUEGOS, {
       method: 'POST',
       headers: {
