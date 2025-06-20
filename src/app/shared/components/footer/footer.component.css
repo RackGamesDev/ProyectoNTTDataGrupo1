@@ -1,0 +1,58 @@
+/* Estilo para el footer, imitando a la navbar */
+.footer-custom {
+  /* Efecto Glassmorphism idéntico a la navbar */
+  background: rgba(15, 15, 25, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  /* Estilo Flotante idéntico a la navbar */
+  margin: 1rem 2rem;
+  border-radius: 20px; /* Un poco menos redondeado que la navbar para diferenciar */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  padding: 1rem 2rem;
+  color: #adb5bd; /* Un gris claro para el texto */
+  font-family: 'Exo 2', sans-serif;
+}
+
+/* Contenedor interior del footer para alinear los elementos */
+.footer-container {
+  display: flex;
+  justify-content: space-between; /* Empuja los elementos a los extremos */
+  align-items: center;
+  flex-wrap: wrap; /* Permite que se apilen en pantallas pequeñas */
+  gap: 1rem; /* Espacio entre los elementos cuando se apilan */
+}
+
+/* Estilos para el texto de copyright y los enlaces */
+.footer-copyright {
+  font-size: 0.9rem;
+}
+
+.footer-links a {
+  color: #adb5bd;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff; /* Se ilumina al pasar el ratón */
+}
+
+/* Contenedor para los iconos de redes sociales */
+.social-icons {
+  display: flex;
+  gap: 1rem; /* Espacio entre iconos */
+}
+
+.social-icons a {
+  color: #adb5bd;
+  transition: all 0.3s ease;
+}
+
+/* Efecto de "brillo" y zoom al pasar el ratón por los iconos */
+.social-icons a:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
