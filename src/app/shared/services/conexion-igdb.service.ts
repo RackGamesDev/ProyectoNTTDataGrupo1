@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+
+import { HttpClient } from '@angular/common/http';
+
 import { Juego } from '../../core/models/juego';
 
 
@@ -11,6 +14,9 @@ export class ConexionIgdbService {
   private readonly API_CLIENTID = environment.igdbClientId;
   private readonly API_SECRET = environment.igdbClientSecret;
   private readonly API_TOKEN = environment.igdbToken;
+
+
+  constructor(private httpClient:HttpClient) { }
   private readonly API_URL_JUEGOS = environment.igdbJuegosUrl;
 
   //Busca todos los juegos que coincidan con un nombre

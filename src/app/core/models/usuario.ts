@@ -7,13 +7,13 @@ export class Usuario {
         if (id == null) {
             throw new Error('id no especificado');
         }
-        if (nombre == null || nombre === '') {
+        if (nombre == null  nombre === '') {
             throw new Error('nombre no especificado');
         }
-        if (email == null || email === '') {
+        if (email == null  email === '') {
             throw new Error('email no especificado');
         }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             throw new Error('email invalido');
         }
