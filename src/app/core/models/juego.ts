@@ -5,6 +5,7 @@ export class Juego {
     public resumen: string;
     public url: string;
     public portada: string;
+    public favorito: boolean;
 
     constructor(
         id: number,
@@ -30,6 +31,7 @@ export class Juego {
         this.resumen = resumen;
         this.url = url;
         this.portada = portada;
+        this.favorito = false;
     }
     
 }

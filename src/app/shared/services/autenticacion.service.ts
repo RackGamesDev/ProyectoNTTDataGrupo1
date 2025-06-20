@@ -10,7 +10,7 @@ export class AutenticacionService {
   private readonly API_URL = environment.clientesUrl;
   private readonly API_NUMERO = environment.clientesApiGrupo;
 
-
+  //Crea un usuario en la API en base a un nombre y un correo no repetido y válido
   async crearUsuario(correo: string, nombre: string) {
     if (!nombre || nombre.trim() === "") {
       console.log("Falta el nombre");
@@ -22,6 +22,7 @@ export class AutenticacionService {
       return;
     }
 
+    
     this.correoExiste(correo).then(async existe => {
       if (!existe) {
         const respuesta = await fetch(this.API_URL, {
@@ -35,9 +36,8 @@ export class AutenticacionService {
             name: nombre,
             contactEmail: correo,
             revenue: 1.00,
-            startDate: '2021-04-25T12:23:16.000Z'
+            startDate: new Date().toISOString().split('.')[0] + '.000Z'
           })
-
         });
         if (respuesta.ok) {
           console.log("BIEN");
@@ -50,6 +50,7 @@ export class AutenticacionService {
     });
   }
 
+  //Devuelve todos los usuarios de la API
   async leerUsuarios(): Promise<Usuario[]> {
     const respuesta = await fetch(this.API_URL, {
       method: 'GET',
@@ -71,9 +72,11 @@ export class AutenticacionService {
     return usuarios;
   }
 
+  //Comprueba si el correo ya se encuentra en la API
   async correoExiste(correo: String): Promise<boolean> {
     const usuarios = await this.leerUsuarios();
     return usuarios.some(e => e.email === correo);
   }
+
   constructor() { }
 }

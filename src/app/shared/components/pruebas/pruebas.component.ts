@@ -16,7 +16,7 @@ export class PruebasComponent {
     this.prueba();
   }
   prueba(){
-    this.autenticacionService.crearUsuario("pruebas3@gmail.com", "prueba2").then(() => {console.log("YAYAYAYAYAY");});
+    this.autenticacionService.crearUsuario("pruebas4@gmail.com", "prueba4").then(() => {console.log("YAYAYAYAYAY");});
     /*this.autenticacionService.leerUsuarios().then((result: Usuario[]) => {
       result.forEach(e => {console.log(e.nombre)})
     });
