@@ -14,6 +14,16 @@ export class Juego {
         url: string,
         portada: string
     ) {
+        if (
+            id == null ||
+            nombre == null || nombre === "" ||
+            fecha == null ||
+            resumen == null || resumen === "" ||
+            url == null || url === "" ||
+            portada == null || portada === ""
+        ) {
+            throw new Error("Parametros invalidos");
+        }
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;

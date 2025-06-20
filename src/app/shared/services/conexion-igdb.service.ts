@@ -14,10 +14,18 @@ export class ConexionIgdbService {
   private readonly API_URL_JUEGOS = environment.igdbJuegosUrl;
 
   async buscarNombre(nombre: String): Promise<Juego[]> {
+    if (!nombre) {
+      console.log("Falta el nombre");
+      return [];
+    }
     const body = 'fields id,cover.image_id,name,release_dates,summary,url; search "' + nombre + '";';
     return this.buscar(body);
   }
   async buscarId(id: number): Promise<Juego[]> {
+    if (!id) {
+      console.log("Falta el id");
+      return [];
+    }
     const body = 'fields id,cover.image_id,name,release_dates,summary,url; where id = ' + id + ';';
     return this.buscar(body);
   }
