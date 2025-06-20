@@ -1,59 +1,88 @@
-# Proyecto
+# GameMatch - CRUD con Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+Este es un proyecto web desarrollado en **Angular** que permite realizar operaciones **CRUD (Crear, Leer, Actualizar y Eliminar)** sobre usuarios conectados a una **API externa**. Permite crear usuario, entrar con un usuario valido a su homepage, modificar el usuario y eliminar el usuario. El proyecto esta enfocado para que cada usuario tenga su lista de juegos personalizada extraídos de la API IGDB (falta finalizar esa funcionalidad).
 
-## Development server
+## 📌 Funcionalidades
 
-To start a local development server, run:
+- ✅ Registro de nuevos usuarios mediante formulario que crea el usuario directamente en la API
+- ✅ Inicio de sesión por correo electrónico
+- ✅ Visualización del perfil del usuario
+- ✅ Edición del nombre y correo mediante formulario editable
+- ✅ Eliminación de la cuenta
+- ✅ Estilos modernos con experiencia de usuario mejorada
 
-```bash
-ng serve
+## 🚀 Tecnologías utilizadas
+
+- Angular 20+
+- TypeScript
+- HTML & CSS
+- Bootstrap (clases personalizadas)
+- API REST externa (con `fetch`)
+- Señales reactivas (`signal`)
+- Forms reactivos (`ReactiveFormsModule`)
+- Enrutamiento (`RouterModule`)
+
+## 🛠️ Instalación
+
+1. Clona este repositorio:
+
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repo.git
+   ```
+
+2. Entra en la carpeta del proyecto:
+
+   ```bash
+   cd tu-repo
+   ```
+
+3. Instala las dependencias:
+
+   ```bash
+   npm install
+   ```
+
+4. Ejecuta la aplicación:
+
+   ```bash
+   ng serve
+   ```
+
+5. Abre tu navegador en [http://localhost:4200](http://localhost:4200)
+
+## 📄 Estructura principal
+
+```
+src/
+│
+├── app/
+│   ├── core/                # Modelos y servicios globales
+│   ├── modules/
+│   │   ├── auth/            # Login y registro de usuarios
+│   │   └── user-home/       # Perfil y gestión de cuenta
+│   └── services/            # Servicios compartidos como sesión
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 👤 Inicio de sesión/Leer usuario
 
-## Code scaffolding
+Para iniciar sesión, solo necesitas un **correo ya registrado** en la API.Si no estás registrado, puedes hacerlo desde la misma web mediante el formulario de registro.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🆕 Crear usuario
 
-```bash
-ng generate component component-name
-```
+Desde la pantalla de registro, puedes introducir un nombre y un correo válido. Si el correo no existe ya en la API, se crea un nuevo usuario directamente. Tras el registro exitoso, el usuario es redirigido automáticamente a su página personal.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## ❌ Eliminar usuario
 
-```bash
-ng generate --help
-```
+Desde la sección de perfil, puedes eliminar completamente tu usuario de la API.
 
-## Building
+## ✏️ Editar usuario
 
-To build the project run:
+Al hacer clic en "Modificar datos" se despliega un formulario para editar tu nombre y correo. Al guardar, los cambios se actualizan directamente en la API. También puedes cancelar la edición sin aplicar cambios.
 
-```bash
-ng build
-```
+## 📬 Contacto
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Proyecto creado como práctica de Angular y CRUD en equipo para NTTData.Desarrollado por: 
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Javier García: [europons@gmail.com](mailto:europons@gmail.com)
+Eloy Rico: [000elrp@gmail.com](mailto:000elrp@gmail.com)
+Daniel Chaves: [dchavescarou@gmail.com](mailto:dchavescarou@gmail.com)
