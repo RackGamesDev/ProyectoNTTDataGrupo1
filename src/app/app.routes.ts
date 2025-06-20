@@ -10,5 +10,9 @@ export const routes: Routes = [
     {
         path: 'pruebas',
         component: PruebasComponent
+    },
+    {
+        path: 'user-home',
+        loadChildren: () => import('./modules/user-home/user-home.module').then(m => m.UserHomeModule)
     }
 ];

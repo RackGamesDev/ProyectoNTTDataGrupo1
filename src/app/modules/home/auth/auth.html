@@ -38,47 +38,6 @@
             </div>
           </div>
 
-          <!-- Contraseña -->
-          <div class="form-group">
-            <label for="password">Contraseña</label>
-            <div class="password-input">
-              <input
-                id="password"
-                [type]="showPassword() ? 'text' : 'password'"
-                formControlName="password"
-                [class.error]="authForm.get('password')?.invalid && authForm.get('password')?.touched"
-                placeholder="Ingresa tu contraseña"
-              />
-              <button
-                type="button"
-                class="password-toggle"
-                (click)="togglePassword()"
-              >
-                {{ showPassword() ? '👁️' : '👁️‍🗨️' }}
-              </button>
-            </div>
-            <div *ngIf="authForm.get('password')?.invalid && authForm.get('password')?.touched" class="error-message">
-              <span *ngIf="authForm.get('password')?.errors?.['required']">La contraseña es requerida</span>
-              <span *ngIf="authForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</span>
-            </div>
-          </div>
-
-          <!-- Confirmar contraseña (solo registro) -->
-          <div *ngIf="!isLoginMode()" class="form-group">
-            <label for="confirmPassword">Confirmar contraseña</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              formControlName="confirmPassword"
-              [class.error]="authForm.get('confirmPassword')?.invalid && authForm.get('confirmPassword')?.touched"
-              placeholder="Confirma tu contraseña"
-            />
-            <div *ngIf="authForm.get('confirmPassword')?.invalid && authForm.get('confirmPassword')?.touched" class="error-message">
-              <span *ngIf="authForm.get('confirmPassword')?.errors?.['required']">Confirma tu contraseña</span>
-              <span *ngIf="authForm.get('confirmPassword')?.errors?.['passwordMismatch']">Las contraseñas no coinciden</span>
-            </div>
-          </div>
-
           <!-- Términos y condiciones (solo registro) -->
           <div *ngIf="!isLoginMode()" class="form-group checkbox-group">
             <label class="checkbox-label">
@@ -100,6 +59,10 @@
             <span *ngIf="!isLoading()">{{ isLoginMode() ? 'Iniciar Sesión' : 'Registrarse' }}</span>
             <span *ngIf="isLoading()" class="loading">Procesando...</span>
           </button>
+          <!-- Error de login -->
+          <div *ngIf="errorMessage()" class="error-message">
+            {{ errorMessage() }}
+          </div>
         </form>
 
         <!-- Alternar entre login y registro -->

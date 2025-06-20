@@ -69,6 +69,7 @@ export class AutenticacionService {
       cuerpo.forEach((e: { id: number, name: string, contactEmail: string }) => {
         usuarios.push(new Usuario(e.id, e.name, e.contactEmail));
       });
+      console.log('Usuarios cargados desde la API:', usuarios);
     } else {
       console.log("ERROR");
     }
@@ -81,5 +82,20 @@ export class AutenticacionService {
     return usuarios.some(e => e.email === correo);
   }
 
+  // Devuelve el usuario si existe, o null si no existe
+  async obtenerUsuarioPorCorreo(correo: string): Promise<Usuario | null> {
+    const usuarios = await this.leerUsuarios();
+    return usuarios.find(e => e.email === correo) || null;
+  }
+
+
   constructor() { }
+
+  getApiUrl(): string {
+    return this.API_URL;
+  }
+
+  getApiGrupo(): string {
+    return this.API_NUMERO;
+  }
 }
