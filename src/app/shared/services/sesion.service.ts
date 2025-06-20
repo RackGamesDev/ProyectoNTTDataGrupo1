@@ -1,20 +1,21 @@
 import { Injectable, signal } from '@angular/core';
+import { Usuario } from '../../core/models/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SesionService {
-  private nombreUsuarioSignal = signal<string>(''); // Signal reactiva
+  private usuarioSignal = signal<Usuario | null>(null);
 
-  setNombre(nombre: string) {
-    this.nombreUsuarioSignal.set(nombre);
+  setUsuario(usuario: Usuario) {
+    this.usuarioSignal.set(usuario);
   }
 
-  getNombre(): string {
-    return this.nombreUsuarioSignal();
+  getUsuario(): Usuario | null {
+    return this.usuarioSignal();
   }
 
   limpiarSesion() {
-    this.nombreUsuarioSignal.set('');
+    this.usuarioSignal.set(null);
   }
 }

@@ -90,4 +90,12 @@ export class AutenticacionService {
 
 
   constructor() { }
+
+  getApiUrl(): string {
+    return this.API_URL;
+  }
+
+  getApiGrupo(): string {
+    return this.API_NUMERO;
+  }
 }

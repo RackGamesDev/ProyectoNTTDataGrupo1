@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AutenticacionService } from '../../../shared/services/autenticacion.service';
 import { OnInit } from '@angular/core';
 import { SesionService } from '../../../shared/services/sesion.service';
+import { Usuario } from '../../../core/models/usuario';
 
 @Component({
   selector: 'auth',
@@ -79,47 +80,89 @@ export class AuthComponent implements OnInit {
   }
 
 
-  onSubmit(): void {
-    if (this.authForm.valid) {
-      this.isLoading.set(true);
+onSubmit(): void {
+  if (this.authForm.valid) {
+    this.isLoading.set(true);
 
-      setTimeout(() => {
-        const formData = this.authForm.value;
+    setTimeout(() => {
+      const formData = this.authForm.value;
 
-        if (this.isLoginMode()) {
-          const email = formData.email;
+      if (this.isLoginMode()) {
+        const email = formData.email;
 
-          this.authService.obtenerUsuarioPorCorreo(email).then(usuario => {
-            if (usuario) {
-              // Guardamos el nombre en memoria (sesionService)
-              this.sesionService.setNombre(usuario.nombre);
+        this.authService.obtenerUsuarioPorCorreo(email).then(usuario => {
+          if (usuario) {
+            this.sesionService.setUsuario(usuario);
+            this.router.navigate(['/user-home']);
+          } else {
+            this.errorMessage.set('Correo no registrado');
+            this.cd.detectChanges();
+            setTimeout(() => {
+              this.errorMessage.set('');
+              this.cd.detectChanges();
+            }, 3000);
+          }
 
+          this.isLoading.set(false);
+        }).catch(error => {
+          this.errorMessage.set('Error al conectar con la API');
+          this.isLoading.set(false);
+          this.cd.detectChanges();
+        });
+      } else {
+        // REGISTRO
+        const nombre = formData.name;
+        const email = formData.email;
+
+        this.authService.correoExiste(email).then(existe => {
+          if (existe) {
+            this.errorMessage.set('Este correo ya está registrado');
+            this.cd.detectChanges();
+            setTimeout(() => {
+              this.errorMessage.set('');
+              this.cd.detectChanges();
+            }, 3000);
+            this.isLoading.set(false);
+          } else {
+            this.authService.crearUsuario(email, nombre).then(() => {
+              // Guardar el usuario en memoria
+              this.sesionService.setUsuario(new Usuario(0, nombre, email));
+
+              // Redirigir directamente al home del usuario
               this.router.navigate(['/user-home']);
-            } else {
-              this.errorMessage.set('Correo no registrado');
+
+              this.isLoading.set(false);
+            }).catch(() => {
+              this.errorMessage.set('Error al registrar el usuario');
               this.cd.detectChanges();
               setTimeout(() => {
                 this.errorMessage.set('');
                 this.cd.detectChanges();
               }, 3000);
-            }
+              this.isLoading.set(false);
 
-            this.isLoading.set(false);
-          }).catch(error => {
-            this.errorMessage.set('Error al conectar con la API');
-            this.isLoading.set(false);
-            this.cd.detectChanges();
-          });
-        } else {
-          console.log('Registrando:', formData);
-          this.isLoading.set(false);
-        }
-      }, 2000);
-    } else {
-      // Marcar todos los campos como tocados para mostrar errores
-      Object.keys(this.authForm.controls).forEach(key => {
-        this.authForm.get(key)?.markAsTouched();
-      });
-    }
+              // Opcional: cambiar al modo login automáticamente
+              this.toggleMode();
+              this.isLoading.set(false);
+            }).catch(() => {
+              this.errorMessage.set('Error al registrar el usuario');
+              this.cd.detectChanges();
+              setTimeout(() => {
+                this.errorMessage.set('');
+                this.cd.detectChanges();
+              }, 3000);
+              this.isLoading.set(false);
+            });
+          }
+        });
+      }
+    }, 2000);
+  } else {
+    // Marcar todos los campos como tocados para mostrar errores
+    Object.keys(this.authForm.controls).forEach(key => {
+      this.authForm.get(key)?.markAsTouched();
+    });
   }
+}
+
 }
