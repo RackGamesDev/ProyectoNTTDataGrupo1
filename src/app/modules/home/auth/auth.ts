@@ -1,5 +1,5 @@
 // auth.component.ts
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -8,9 +8,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './auth.html',
-  styleUrl: './auth.css'
+  styleUrl: './auth.css',
+  changeDetection: ChangeDetectionStrategy.OnPush // Añade esto
 })
-export class authComponent {
+export class AuthComponent {
   private fb = new FormBuilder();
   
   // Signals para el estado del componente
@@ -20,8 +21,9 @@ export class authComponent {
   
   authForm: FormGroup;
 
-  constructor() {
+   constructor(private cd: ChangeDetectorRef) { // Inyecta ChangeDetectorRef
     this.authForm = this.createForm();
+    this.updateFormValidators();
   }
 
   private createForm(): FormGroup {
@@ -37,6 +39,7 @@ export class authComponent {
   toggleMode(): void {
     this.isLoginMode.set(!this.isLoginMode());
     this.updateFormValidators();
+    this.cd.detectChanges(); // Añade esto para forzar la detección de cambios
   }
 
   private updateFormValidators(): void {
@@ -74,6 +77,7 @@ export class authComponent {
 
   togglePassword(): void {
     this.showPassword.set(!this.showPassword());
+    this.cd.detectChanges(); // Añade esto para forzar la detección de cambios
   }
 
   onSubmit(): void {
