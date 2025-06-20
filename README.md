@@ -27,13 +27,13 @@ Este es un proyecto web desarrollado en **Angular** que permite realizar operaci
 1. Clona este repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/tu-repo.git
+   git clone https://github.com/RackGamesDev/ProyectoNTTDataGrupo1.git
    ```
 
 2. Entra en la carpeta del proyecto:
 
    ```bash
-   cd tu-repo
+   cd ProyectoNTTDataGrupo1
    ```
 
 3. Instala las dependencias:
@@ -56,11 +56,13 @@ Este es un proyecto web desarrollado en **Angular** que permite realizar operaci
 src/
 │
 ├── app/
-│   ├── core/                # Modelos y servicios globales
+│   ├── core/                # Modelos globales
 │   ├── modules/
 │   │   ├── auth/            # Login y registro de usuarios
 │   │   └── user-home/       # Perfil y gestión de cuenta
-│   └── services/            # Servicios compartidos como sesión
+│   └── shared/
+│   │   ├── services/        # Servicios compartidos como sesión
+│   │   └── components/      # Componentes principales como barra de navegación y footer
 ```
 
 ## 👤 Inicio de sesión/Leer usuario
